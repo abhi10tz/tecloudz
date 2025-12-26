@@ -1,19 +1,120 @@
 ---
+import Layout from '../layouts/Layout.astro'; // Capitalized 'L' is safer
+import { getCollection } from 'astro:content';
 
+// 1. Fetch all posts
+const allPosts = await getCollection('posts');
+
+// 2. Sort by Date (Newest first)
+const sortedPosts = allPosts.sort((a, b) => 
+  b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+// 3. Separate Featured vs. List
+const featuredPost = sortedPosts.find(p => p.data.featured);
+// Filter out the featured post from the main list
+const listPosts = sortedPosts.filter(p => p.slug !== featuredPost?.slug);
+
+// 4. Date Formatter Helper
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric', month: 'short', day: 'numeric'
+  });
+};
+
+// SEO Schema
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "NewsMediaOrganization",
+  "name": "tecloudz",
+  "url": Astro.site,
+  "blogPost": sortedPosts.map(post => ({
+    "@type": "BlogPosting",
+    "headline": post.data.title,
+    "datePublished": post.data.date.toISOString(),
+    "author": { "@type": "Person", "name": post.data.author }
+  }))
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<a href="/">Home</a><br>
-		<a href="/about">About</a><br>
-		<a href="/blog">Blog</a>
-		<h1>My Astro Site</h1>
-	</body>
-</html>
+<Layout title="tecloudz | Tech stories that matter">
+  
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <header class="navbar">
+    <div class="logo">tecloudz.</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/posts">Posts</a>
+      <a href="/about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    {featuredPost &&
+      <section class="hero" aria-label="Featured Story">
+        <span class="meta-label">Featured Story &mdash; {formatDate(featuredPost.data.date)}</span>
+        <article>
+          <h1><a href={`/posts/${featuredPost.slug}`}>{featuredPost.data.title}</a></h1>
+          <p class="lead">{featuredPost.data.description}</p>
+          <div class="author-meta">By {featuredPost.data.author} in <strong>{featuredPost.data.category}</strong></div>
+        </article>
+      </section>
+    }
+
+    <hr class="divider" />
+
+    <section class="feed" aria-label="Latest News">
+      <div class="feed-header"><h2>Latest</h2></div>
+      
+      <div class="article-list">
+        {listPosts.map((post) => (
+          <article class="feed-item">
+            <div class="item-meta">
+              <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+              <span class="cat-tag">/ {post.data.category}</span>
+            </div>
+            <h3><a href={`/posts/${post.slug}`}>{post.data.title}</a></h3>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  </Layout>
+
+<style>
+  /* --- UPDATED STYLES --- */
+  main, header { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+  
+  h1 { font-size: 2.5rem; letter-spacing: -0.03em; line-height: 1.1; margin: 0.5rem 0 1rem 0; font-weight: 800; }
+  
+  h2 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin: 0; }
+  
+  h3 { font-size: 1.25rem; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  
+  p { color: var(--text-main); }
+  .lead { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+  
+  .navbar { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; padding-bottom: 4rem; }
+  .logo { font-weight: 700; font-size: 1.1rem; }
+  
+  nav a { margin-left: 1.5rem; font-size: 0.9rem; color: var(--text-muted); }
+  nav a:hover { color: var(--accent); text-decoration: underline; }
+
+  .hero { margin-bottom: 3rem; }
+  .meta-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .author-meta { font-size: 0.9rem; color: var(--text-muted); }
+  
+  .divider { border: 0; border-top: 1px solid var(--border-color); margin: 3rem 0; }
+  
+  .feed-header { margin-bottom: 2rem; }
+  .article-list { display: flex; flex-direction: column; gap: 2.5rem; }
+  
+  .feed-item { display: flex; flex-direction: column; gap: 0.25rem; transition: opacity 0.2s; }
+  .feed-item:hover { opacity: 0.7; }
+  
+  .item-meta { font-size: 0.85rem; color: var(--text-muted); font-family: monospace; margin-bottom: 0.25rem; }
+
+  @media (max-width: 600px) { h1 { font-size: 2rem; } .navbar { padding-bottom: 2rem; } }
+</style>

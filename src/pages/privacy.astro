@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const lastUpdated = new Date().toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric'
+});
+---
+
+<Layout title="Privacy Policy - tecloudz">
+  <header class="navbar">
+    <div class="logo"><a href="/">tecloudz.</a></div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/posts">Posts</a>
+      <a href="/about">About</a>
+    </nav>
+  </header>
+
+  <main class="policy-container">
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated: {lastUpdated}</p>
+
+    <div class="policy-content">
+      <p>
+        At <strong>tecloudz</strong>, accessible from https://tecloudz.com, one of our main priorities is the privacy of our visitors. 
+        This Privacy Policy document contains types of information that is collected and recorded by tecloudz and how we use it.
+      </p>
+
+      <h2>Log Files</h2>
+      <p>
+        tecloudz follows a standard procedure of using log files. These files log visitors when they visit websites. 
+        All hosting companies do this as a part of hosting services' analytics. The information collected by log files includes 
+        internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, 
+        and possibly the number of clicks. These are not linked to any information that is personally identifiable.
+      </p>
+
+      <h2>Cookies and Web Beacons</h2>
+      <p>
+        Like any other website, tecloudz uses 'cookies'. These cookies are used to store information including visitors' preferences, 
+        and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience 
+        by customizing our web page content based on visitors' browser type and/or other information.
+      </p>
+
+      <h2>Google DoubleClick DART Cookie</h2>
+      <p>
+        Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors 
+        based upon their visit to www.website.com and other sites on the internet. However, visitors may choose to decline the use of 
+        DART cookies by visiting the Google ad and content network Privacy Policy at the following URL – 
+        <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">https://policies.google.com/technologies/ads</a>
+      </p>
+
+      <h2>Privacy Policies</h2>
+      <p>
+        You may consult this list to find the Privacy Policy for each of the advertising partners of tecloudz.
+      </p>
+      <p>
+        Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are used in their 
+        respective advertisements and links that appear on tecloudz, which are sent directly to users' browser. They automatically 
+        receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising 
+        campaigns and/or to personalize the advertising content that you see on websites that you visit.
+      </p>
+      <p>
+        Note that tecloudz has no access to or control over these cookies that are used by third-party advertisers.
+      </p>
+
+      <h2>Consent</h2>
+      <p>
+        By using our website, you hereby consent to our Privacy Policy and agree to its Terms and Conditions.
+      </p>
+    </div>
+  </main>
+
+  <footer class="minimal-footer">
+    <p>&copy; 2025 tecloudz</p>
+  </footer>
+</Layout>
+
+<style>
+  /* Reuse layout variables for consistency */
+  .navbar { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .logo a { font-weight: 700; font-size: 1.1rem; color: var(--text-main); }
+  nav a { margin-left: 1.5rem; font-size: 0.9rem; color: var(--text-muted); }
+  nav a:hover { color: var(--accent); text-decoration: underline; }
+
+  .policy-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+  }
+
+  .meta {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 3rem;
+    font-family: monospace;
+  }
+
+  .policy-content {
+    line-height: 1.7;
+    color: var(--text-main);
+  }
+
+  .policy-content h2 {
+    font-size: 1.4rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+  }
+
+  .policy-content p {
+    margin-bottom: 1.5rem;
+    color: var(--text-muted); /* Slightly softer text for reading long docs */
+  }
+
+  .policy-content a {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .minimal-footer { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; text-align: center; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted); }
+  
+  @media (max-width: 600px) {
+    h1 { font-size: 2rem; }
+    .navbar { padding-bottom: 2rem; }
+  }
+</style>

@@ -1,16 +1,130 @@
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<a href="/">Home</a>
-        <a href="/about">About</a>
-        <h1>About me</h1>
-        <p>This is the second page on my website, and it's the first one I built myself!</p>
-        <p>This site will update as I add more...., so keep checking back and see how my journey is going!</p>
-	</body>
-</html>
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About - tecloudz">
+  <header class="navbar">
+    <div class="logo">tecloudz.</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/posts">Posts</a>
+      <a href="/about" class="active">About</a>
+    </nav>
+  </header>
+
+  <main class="about-container">
+    <h1>About tecloudz</h1>
+    <p class="lead">Cutting-edge tech stories that matter.</p>
+
+    <div class="content-block">
+      <h2>Who We Are</h2>
+      <p>
+        tecloudz is a privacy-first, no-nonsense tech blog. We believe the modern web is too cluttered. 
+        Our goal is to strip away the noise and deliver high-quality technology news, tutorials, and 
+        privacy guides in a clean, readable format.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Our Mission</h2>
+      <p>
+        We focus on open-source software, privacy tools, and 
+        practical tech tips.
+      </p>
+    </div>
+
+    <div class="content-block">
+      <h2>Contact</h2>
+      <p>
+        Have a tip or a suggestion? Reach out to us at:
+        <br />
+        <a href="mailto:hello@tecloudz.com" class="email-link">hello@tecloudz.com</a>
+      </p>
+    </div>
+  </main>
+
+  
+</Layout>
+
+<style>
+  /* Reuse layout variables for consistency & Dark Mode */
+  
+  /* Layout Constraints */
+  main, header, footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+  .logo { font-weight: 700; font-size: 1.1rem; color: var(--text-main); }
+  nav a { margin-left: 1.5rem; font-size: 0.9rem; color: var(--text-muted); }
+  nav a:hover { color: var(--accent); text-decoration: underline; }
+  
+  /* Active Link Style (Optional: highlights 'About') */
+  nav a.active { color: var(--text-main); font-weight: 600; }
+
+  /* Typography */
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    color: var(--text-main);
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+    margin-top: 0;
+  }
+
+  p {
+    line-height: 1.7;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Spacing */
+  .about-container { margin-bottom: 4rem; }
+  .content-block { margin-bottom: 2.5rem; }
+
+  /* Link Styling */
+  .email-link {
+    color: var(--accent);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+
+  /* Footer */
+  .minimal-footer {
+    margin-top: 5rem;
+    padding-bottom: 2rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* Mobile Tweaks */
+  @media (max-width: 600px) {
+    h1 { font-size: 2rem; }
+    .navbar { padding-bottom: 2rem; }
+  }
+</style>
