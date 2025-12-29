@@ -6,7 +6,7 @@ import ShareButtons from '../../components/ShareButtons.astro'; // Import is sti
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
   return posts.map(post => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }
@@ -21,7 +21,7 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<Layout title={post.data.title}>
+<Layout title={post.data.title} description={post.data.description}>
   <header class="navbar">
     <div class="logo"><a href="/">tecloudz.</a></div>
   </header>

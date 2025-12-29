@@ -13,7 +13,7 @@ const sortedPosts = allPosts.sort((a, b) =>
 // 3. Separate Featured vs. List
 const featuredPost = sortedPosts.find(p => p.data.featured);
 // Filter out the featured post from the main list
-const listPosts = sortedPosts.filter(p => p.slug !== featuredPost?.slug);
+const listPosts = sortedPosts.filter(p => p.id !== featuredPost?.id);
 
 // 4. Date Formatter Helper
 const formatDate = (date: Date) => {
@@ -55,7 +55,7 @@ const schemaData = {
       <section class="hero" aria-label="Featured Story">
         <span class="meta-label">Featured Story &mdash; {formatDate(featuredPost.data.date)}</span>
         <article>
-          <h1><a href={`/posts/${featuredPost.slug}`}>{featuredPost.data.title}</a></h1>
+          <h1><a href={`/posts/${featuredPost.id}`}>{featuredPost.data.title}</a></h1>
           <p class="lead">{featuredPost.data.description}</p>
           <div class="author-meta">By {featuredPost.data.author} in <strong>{featuredPost.data.category}</strong></div>
         </article>
@@ -74,7 +74,7 @@ const schemaData = {
               <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
               <span class="cat-tag">/ {post.data.category}</span>
             </div>
-            <h3><a href={`/posts/${post.slug}`}>{post.data.title}</a></h3>
+            <h3><a href={`/posts/${post.id}`}>{post.data.title}</a></h3>
           </article>
         ))}
       </div>

@@ -11,7 +11,7 @@ Note-taking is not the same for everyone. Some people want a small, private plac
 
 ## 1. Standard Notes — simple, private, audited
 
-![Standard Notes Logo](../../assets/standard-notes-logo.webp)
+![Standard Notes Logo](../assets/standard-notes-logo.webp)
 
 **What it is:** Standard Notes is a minimal, privacy-focused notes app with end-to-end encryption (E2EE) across platforms and strong desktop support (themes, custom editors). It’s built for people who want frictionless syncing and a long-term, private notes vault. (Standard Notes joined Proton AG on April 10, 2024.)
 
@@ -32,7 +32,7 @@ Note-taking is not the same for everyone. Some people want a small, private plac
 
 ## 2. Notesnook — open-source, privacy-focused, easy to use
 
-![Notesnook Logo](../../assets/notesnook-logo.webp)
+![Notesnook Logo](../assets/notesnook-logo.webp)
 
 **What it is:** Notesnook is a free-as-in-speech, open-source E2EE note app that emphasizes privacy and simplicity. It offers multi-device sync and provides importers so you can migrate notes from Evernote, OneNote and others.
 
@@ -52,7 +52,7 @@ Note-taking is not the same for everyone. Some people want a small, private plac
 
 ## 3. Joplin — power user, Markdown + sync flexibility
 
-![Joplin Logo](../../assets/joplin-logo.svg)
+![Joplin Logo](../assets/joplin-logo.svg)
 
 **What it is:** Joplin is a free, open-source note and to-do app geared toward people who want full control and a rich Markdown experience. It supports notebooks, tags, attachments and can sync via Nextcloud, Dropbox, WebDAV and more.
 
