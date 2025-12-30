@@ -1,10 +1,12 @@
 ---
-title: "How to Create a Custom Samsung Wallet UPI ID"
+title: "How to Create a Custom UPI ID in Samsung Wallet"
 description: "Ditch the generic phone number. Learn how to create a custom, professional UPI ID on Samsung Wallet in 5 easy steps."
 date: "2025-12-24"
 author: "tecloudz"
 category: "How-To"
 featured: true
+image: "../assets/samsung_wallet_interface.webp"
+tags: ["Samsung", "UPI", "Samsung Wallet", "Android", "Finance"]
 ---
 
 Want to customize your Samsung Wallet UPI ID? By default, Samsung Wallet sets your UPI ID to something generic like **your-email@pingpay** or your mobile number. 

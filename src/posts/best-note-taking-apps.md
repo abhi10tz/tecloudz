@@ -5,6 +5,8 @@ date: "2025-12-20"
 author: "tecloudz"
 category: "Productivity"
 featured: false
+image: "../assets/standard-notes-logo.webp"
+tags: ["Productivity", "Notes", "Privacy", "Open Source", "Software"]
 ---
 
 Note-taking is not the same for everyone. Some people want a small, private place to write. Others want strong Markdown features and cloud syncing. Below are three great note apps. Each one balances privacy, power, and ease of use in a different way.

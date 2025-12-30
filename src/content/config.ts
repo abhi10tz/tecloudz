@@ -11,6 +11,8 @@ const posts = defineCollection({
     author: z.string().default('tecloudz Team'),
     category: z.string(),
     featured: z.boolean().default(false),
+    image: z.string().optional(),
+    tags: z.array(z.string()).optional(),
   }),
 });
 
