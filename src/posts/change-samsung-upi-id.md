@@ -2,10 +2,10 @@
 title: "How to Create a Custom UPI ID in Samsung Wallet"
 description: "Ditch the generic phone number. Learn how to create a custom, professional UPI ID on Samsung Wallet in 5 easy steps."
 date: "2025-12-24"
-author: "tecloudz"
+author: "abhi"
 category: "How-To"
 featured: true
-image: "../assets/samsung_wallet_interface.webp"
+image: "../assets/samsung_wallet_interface_hero.webp"
 tags: ["Samsung", "UPI", "Samsung Wallet", "Android", "Finance"]
 ---
 

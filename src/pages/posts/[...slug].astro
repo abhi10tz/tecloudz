@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import ShareButtons from '../../components/ShareButtons.astro'; // Import is still here
 
@@ -21,7 +22,7 @@ const formatDate = (date: Date) => {
 };
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
+<Layout title={post.data.title} description={post.data.description} image={post.data.image}>
   <header class="navbar">
     <div class="logo"><a href="/">tecloudz.</a></div>
   </header>
@@ -35,6 +36,12 @@ const formatDate = (date: Date) => {
         </div>
         <h1>{post.data.title}</h1>
         <p class="author">By {post.data.author}</p>
+        
+        {post.data.image && (
+          <div class="featured-image">
+            <Image src={post.data.image} alt={post.data.title} />
+          </div>
+        )}
       </header>
 
       <ShareButtons title={post.data.title} />
@@ -67,6 +74,9 @@ const formatDate = (date: Date) => {
   .meta { font-family: monospace; color: var(--text-muted); font-size: 0.9rem; }
   .author { color: var(--text-muted); font-style: italic; }
 
+  .featured-image { margin-top: 2rem; margin-bottom: 1rem; }
+  .featured-image img { width: 100%; height: auto; border-radius: 8px; }
+
   /* Markdown Content Styling */
   .post-content { 
     line-height: 1.7; 
@@ -95,6 +105,4 @@ const formatDate = (date: Date) => {
     border-radius: 8px;
     margin: 2rem 0;
   }
-
-  .minimal-footer { max-width: 720px; margin: 4rem auto 0; padding: 2rem 1.5rem; text-align: center; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted); }
 </style>

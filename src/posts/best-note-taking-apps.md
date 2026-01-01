@@ -5,7 +5,7 @@ date: "2025-12-20"
 author: "tecloudz"
 category: "Productivity"
 featured: false
-image: "../assets/standard-notes-logo.webp"
+image: "../assets/best_note_taking_apps_hero.webp"
 tags: ["Productivity", "Notes", "Privacy", "Open Source", "Software"]
 ---
 

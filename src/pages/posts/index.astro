@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import { getCollection } from 'astro:content';
+
+// 1. Fetch all posts
+const allPosts = await getCollection('posts');
+
+// 2. Sort by Date (Newest first)
+const sortedPosts = allPosts.sort((a, b) => 
+  b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+// 3. Date Formatter Helper
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric', month: 'short', day: 'numeric'
+  });
+};
+---
+
+<Layout title="All Posts - tecloudz">
+  <Navbar active="posts" />
+
+  <main>
+    <header class="page-header">
+      <h1>All Posts</h1>
+      <p class="lead">A complete archive of our tech stories, guides, and news.</p>
+    </header>
+
+    <div class="article-list">
+      {sortedPosts.map((post) => (
+        <article class="feed-item">
+          <div class="item-meta">
+            <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+            <span class="cat-tag">/ {post.data.category}</span>
+          </div>
+          <h3><a href={`/posts/${post.id}`}>{post.data.title}</a></h3>
+        </article>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem 1.5rem;
+  }
+
+  .page-header {
+    margin-bottom: 3rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0.5rem 0 1rem 0;
+    font-weight: 800;
+  }
+
+  .lead {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  
+  .feed-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: opacity 0.2s;
+  }
+  .feed-item:hover {
+    opacity: 0.7;
+  }
+  
+  .item-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-family: monospace;
+    margin-bottom: 0.25rem;
+  }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 2rem; }
+  }
+</style>

@@ -1,13 +1,23 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
   title: string;
   description?: string;
+  image?: ImageMetadata | string;
 }
 
-const { title, description = "Cutting-edge tech stories that matter. Privacy-first news, tutorials, and guides." } = Astro.props;
+const { title, description = "Cutting-edge tech stories that matter. Privacy-first news, tutorials, and guides.", image } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const resolveImageURL = (img: ImageMetadata | string | undefined) => {
+  if (!img) return new URL('/favicon.svg', Astro.site);
+  if (typeof img === 'string') return new URL(img, Astro.site); // Handle string paths
+  return new URL(img.src, Astro.site); // Handle ImageMetadata
+};
+
+const socialImageURL = resolveImageURL(image);
 ---
 
 <!doctype html>
@@ -32,14 +42,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL('/favicon.svg', Astro.site)} />
+    <meta property="og:image" content={socialImageURL} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL('/favicon.svg', Astro.site)} />
+    <meta property="twitter:image" content={socialImageURL} />
 
     <style is:global>
       /* --- 1. Define Variables (Light Mode Default) --- */
