@@ -39,7 +39,12 @@ const formatDate = (date: Date) => {
         
         {post.data.image && (
           <div class="featured-image">
-            <Image src={post.data.image} alt={post.data.title} />
+            <Image 
+              src={post.data.image} 
+              alt={post.data.title} 
+              loading="eager"
+              fetchpriority="high"
+            />
           </div>
         )}
       </header>
