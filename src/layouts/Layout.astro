@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import type { ImageMetadata } from 'astro';
+import '../styles/global.css';
 
 interface Props {
   title: string;
@@ -50,72 +51,6 @@ const socialImageURL = resolveImageURL(image);
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
-
-    <style is:global>
-      /* --- 1. Define Variables (Light Mode Default) --- */
-      :root {
-        --bg-color: #ffffff;
-        --text-main: #111111;
-        --text-muted: #666666;
-        --border-color: #eaeaea;
-        --accent: #000000;
-        --hover-bg: #f5f5f5;
-      }
-
-      /* --- 2. Dark Mode Override --- */
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg-color: #111111;
-          --text-main: #e0e0e0;
-          --text-muted: #a0a0a0;
-          --border-color: #333333;
-          --accent: #ffffff;
-          --hover-bg: #222222;
-        }
-      }
-
-      /* --- 3. Global Styles --- */
-      html { 
-        font-family: system-ui, sans-serif; 
-        background: var(--bg-color); 
-        color: var(--text-main); 
-      }
-      body { margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
-      a { text-decoration: none; color: inherit; }
-      a:hover { color: var(--accent); }
-
-      /* --- 4. Global Footer Styles --- */
-      .minimal-footer {
-        margin-top: auto;      /* Pushes footer to the bottom */
-        margin-left: auto;     /* CENTERS it horizontally */
-        margin-right: auto;    /* CENTERS it horizontally */
-        width: 100%;
-        max-width: 720px;
-        
-        padding: 2rem 1.5rem;  /* Adds side padding to match your Main content */
-        text-align: center;
-        border-top: 1px solid var(--border-color);
-        font-size: 0.8rem;
-        color: var(--text-muted);
-      }
-
-      .footer-links {
-        margin-bottom: 1rem;
-        display: flex;
-        justify-content: center;
-        gap: 1.5rem;
-      }
-      
-      .footer-links a {
-        color: var(--text-muted);
-        font-weight: 500;
-      }
-      
-      .footer-links a:hover {
-        color: var(--accent);
-        text-decoration: underline;
-      }
-    </style>
   </head>
   <body>
     <slot />

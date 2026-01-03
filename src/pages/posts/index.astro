@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import { getCollection } from 'astro:content';
+import { formatDate } from '../../utils/date';
 
 // 1. Fetch all posts
 const allPosts = await getCollection('posts');
@@ -11,12 +12,7 @@ const sortedPosts = allPosts.sort((a, b) =>
   b.data.date.valueOf() - a.data.date.valueOf()
 );
 
-// 3. Date Formatter Helper
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric', month: 'short', day: 'numeric'
-  });
-};
+
 ---
 
 <Layout title="All Posts - tecloudz">

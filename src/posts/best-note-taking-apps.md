@@ -78,11 +78,14 @@ Note-taking is not the same for everyone. Some people want a small, private plac
 
 ## Summary Picks
 
-### Pick **Standard Notes** if you want the cleanest, most audited privacy experience with seamless cross-platform E2EE and don’t mind paying for extra editors/features.
+**Standard Notes**
+Pick this if you want the cleanest, most audited privacy experience with seamless cross-platform E2EE and don’t mind paying for extra editors/features.
 
-### Pick **Notesnook** if you want an open-source, privacy-first app that’s easy to switch to and has simple import tools.
+**Notesnook**
+Pick this if you want an open-source, privacy-first app that’s easy to switch to and has simple import tools.
 
-### Pick **Joplin** if you want full Markdown power, flexible sync (self-host or use mainstream cloud), and a feature-rich editor suited for long-form writing and project organization.
+**Joplin**
+Pick this if you want full Markdown power, flexible sync (self-host or use mainstream cloud), and a feature-rich editor suited for long-form writing and project organization.
 
 ### Pro tips for switching
 - Export from your old app (Evernote/OneNote) using the app’s export tool, then use the importers provided by Notesnook or Joplin, or copy into Standard Notes via plain text/Markdown.

@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import ShareButtons from '../../components/ShareButtons.astro'; // Import is still here
+import { formatDate } from '../../utils/date';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -15,11 +16,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric', month: 'long', day: 'numeric'
-  });
-};
+
 ---
 
 <Layout title={post.data.title} description={post.data.description} image={post.data.image}>
@@ -31,7 +28,7 @@ const formatDate = (date: Date) => {
     <article>
       <header class="post-header">
         <div class="meta">
-          <time>{formatDate(post.data.date)}</time>
+          <time>{formatDate(post.data.date, { month: 'long' })}</time>
           <span>/ {post.data.category}</span>
         </div>
         <h1>{post.data.title}</h1>
@@ -100,7 +97,59 @@ const formatDate = (date: Date) => {
   }
 
   .post-content :global(p) { margin-bottom: 1.5rem; }
-  .post-content :global(ul) { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+  .post-content :global(ul), 
+  .post-content :global(ol) { 
+    margin-bottom: 1.5rem; 
+    padding-left: 1.5rem; 
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Handle nested lists */
+  .post-content :global(li > ul),
+  .post-content :global(li > ol) {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .post-content :global(blockquote) {
+    border-left: 4px solid var(--accent);
+    padding-left: 1rem;
+    margin-left: 0;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .post-content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 2rem 0;
+  }
+
+  .post-content :global(code) {
+    background-color: var(--hover-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: monospace;
+  }
+
+  .post-content :global(pre) {
+    background-color: var(--hover-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+  }
+  
+  .post-content :global(pre) :global(code) {
+    background-color: transparent;
+    padding: 0;
+  }
+
   .post-content :global(a) { text-decoration: underline; color: var(--accent); }
   
   /* Images */

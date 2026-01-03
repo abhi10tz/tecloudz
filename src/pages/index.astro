@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro'; // Capitalized 'L' is safer
 import Navbar from '../components/Navbar.astro';
 import { getCollection } from 'astro:content';
+import { formatDate } from '../utils/date';
 
 // 1. Fetch all posts
 const allPosts = await getCollection('posts');
@@ -15,13 +16,6 @@ const sortedPosts = allPosts.sort((a, b) =>
 const featuredPost = sortedPosts.find(p => p.data.featured);
 // Filter out the featured post from the main list
 const listPosts = sortedPosts.filter(p => p.id !== featuredPost?.id);
-
-// 4. Date Formatter Helper
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric', month: 'short', day: 'numeric'
-  });
-};
 
 // SEO Schema
 const schemaData = {
