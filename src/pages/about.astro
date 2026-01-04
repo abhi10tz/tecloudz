@@ -1,11 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
 ---
 
-<Layout title="About - tecloudz" description="Learn more about tecloudz, a privacy-first tech blog dedicated to high-quality news, tutorials, and open-source guides.">
-  <Navbar active="about" />
-
+<Layout title="About - tecloudz" description="Learn more about tecloudz, a privacy-first tech blog dedicated to high-quality news, tutorials, and open-source guides." activeNav="about">
+  
   <main class="about-container">
     <h1>About tecloudz</h1>
     <p class="lead">Cutting-edge tech stories that matter.</p>
@@ -43,13 +41,6 @@ import Navbar from '../components/Navbar.astro';
 <style>
   /* Reuse layout variables for consistency & Dark Mode */
   
-  /* Layout Constraints */
-  main, footer {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
   /* Typography */
   h1 {
     font-size: 2.5rem;

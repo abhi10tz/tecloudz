@@ -33,12 +33,9 @@ a:hover { color: var(--accent); }
 /* --- 4. Global Footer Styles --- */
 .minimal-footer {
   margin-top: auto;      /* Pushes footer to the bottom */
-  margin-left: auto;     /* CENTERS it horizontally */
-  margin-right: auto;    /* CENTERS it horizontally */
   width: 100%;
-  max-width: 720px;
   
-  padding: 2rem 1.5rem;  /* Adds side padding to match your Main content */
+  padding: 2rem 0;
   text-align: center;
   border-top: 1px solid var(--border-color);
   font-size: 0.8rem;

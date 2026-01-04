@@ -1,15 +1,17 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import type { ImageMetadata } from 'astro';
+import Navbar from '../components/Navbar.astro';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description?: string;
   image?: ImageMetadata | string;
+  activeNav?: 'home' | 'posts' | 'about';
 }
 
-const { title, description = "Cutting-edge tech stories that matter. Privacy-first news, tutorials, and guides.", image } = Astro.props;
+const { title, description = "Cutting-edge tech stories that matter. Privacy-first news, tutorials, and guides.", image, activeNav } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const resolveImageURL = (img: ImageMetadata | string | undefined) => {
@@ -53,15 +55,37 @@ const socialImageURL = resolveImageURL(image);
     <meta property="twitter:image" content={socialImageURL} />
   </head>
   <body>
-    <slot />
+    <div class="site-wrapper">
+      <Navbar active={activeNav} />
+      
+      <main>
+        <slot />
+      </main>
 
-    <footer class="minimal-footer">
-      <div class="footer-links">
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms</a> <a href="/about">About</a>
-        <a href="/posts">Posts</a>
-      </div>
-      <p>&copy; 2026 tecloudz</p>
-    </footer>
+      <footer class="minimal-footer">
+        <div class="footer-links">
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms</a> <a href="/about">About</a>
+          <a href="/posts">Posts</a>
+        </div>
+        <p>&copy; 2026 tecloudz</p>
+      </footer>
+    </div>
   </body>
 </html>
+
+<style>
+  .site-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    flex: 1;
+    width: 100%;
+  }
+</style>

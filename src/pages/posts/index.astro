@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Navbar from '../../components/Navbar.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../../utils/date';
 
@@ -15,8 +14,7 @@ const sortedPosts = allPosts.sort((a, b) =>
 
 ---
 
-<Layout title="All Posts - tecloudz">
-  <Navbar active="posts" />
+<Layout title="All Posts - tecloudz" activeNav="posts">
 
   <main>
     <header class="page-header">
@@ -40,9 +38,7 @@ const sortedPosts = allPosts.sort((a, b) =>
 
 <style>
   main {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 1.5rem 4rem 1.5rem;
+    margin-bottom: 4rem;
   }
 
   .page-header {

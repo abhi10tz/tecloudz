@@ -1,8 +1,7 @@
 /* Policy Page (Terms & Privacy) Shared Styles */
 .policy-container {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 0 1.5rem 4rem 1.5rem;
+  /* Width handled by Layout.astro wrapper */
+  margin-bottom: 4rem;
 }
 
 .policy-container h1 {

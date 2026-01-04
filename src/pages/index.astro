@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro'; // Capitalized 'L' is safer
-import Navbar from '../components/Navbar.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../utils/date';
 
@@ -32,11 +31,9 @@ const schemaData = {
 };
 ---
 
-<Layout title="tecloudz | Tech stories that matter">
+<Layout title="tecloudz | Tech stories that matter" activeNav="home">
   
   <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-
-  <Navbar active="home" />
 
   <main>
     {featuredPost &&
@@ -73,7 +70,6 @@ const schemaData = {
 
 <style>
   /* --- UPDATED STYLES --- */
-  main { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
   
   h1 { font-size: 2.5rem; letter-spacing: -0.03em; line-height: 1.1; margin: 0.5rem 0 1rem 0; font-weight: 800; }
   
