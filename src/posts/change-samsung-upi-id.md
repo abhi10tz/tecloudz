@@ -52,3 +52,16 @@ Launch the **Samsung Wallet** app from your app drawer.
 
 ### That is it! 
 Your new custom UPI ID is now active. You can now share this specific ID with friends or clients instead of sharing your phone number.
+
+## Frequently Asked Questions
+
+### Can I change my UPI ID multiple times?
+Yes, you can change your UPI ID multiple times in Samsung Wallet. However, it is better to stick to one professional ID to avoid confusion during transactions.
+
+### Is it safe to use a custom UPI ID?
+Absolutely. A custom UPI ID (VPA) is just an alias for your bank account. The underlying security and encryption remains the same as any other UPI transaction.
+
+### What happens to my old UPI ID?
+Once you change it, your old ID might become inactive or remain as a secondary ID depending on your bank's policy.
+
+For more official information, you can visit the [Samsung Pay India Support Page](https://www.samsung.com/in/samsung-pay/).

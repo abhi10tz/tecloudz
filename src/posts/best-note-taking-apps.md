@@ -111,3 +111,6 @@ Another major plus is cross-platform sync. Whether I’m on Desktop, mobile, or 
 * Optional themes & editors when needed
 
 If you’re someone who values security, simplicity, and long-term reliability, Standard Notes is easily one of the best note-taking apps you can choose.
+
+---
+**Check out our latest guide:** [How to Create a Custom UPI ID in Samsung Wallet](/posts/change-samsung-upi-id)

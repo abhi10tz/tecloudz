@@ -14,13 +14,42 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
+// Filter headings for TOC (usually H2 and H3)
+const toc = headings.filter(h => h.depth > 1 && h.depth < 4);
 
+// Prepare Schema Data
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "image": post.data.image ? new URL(post.data.image.src, Astro.site) : new URL('/favicon.svg', Astro.site),
+  "author": {
+    "@type": "Person",
+    "name": post.data.author
+  },
+  "datePublished": post.data.date.toISOString(),
+  "publisher": {
+    "@type": "Organization",
+    "name": "tecloudz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL('/favicon.svg', Astro.site)
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": new URL(Astro.url.pathname, Astro.site)
+  }
+};
 ---
 
 <Layout title={post.data.title} description={post.data.description} image={post.data.image}>
   
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
   <main class="post-container">
     <article>
       <header class="post-header">
@@ -44,6 +73,19 @@ const { Content } = await render(post);
       </header>
 
       <ShareButtons title={post.data.title} />
+
+      {toc.length > 0 && (
+        <nav class="toc">
+          <p class="toc-title">Table of Contents</p>
+          <ul>
+            {toc.map(heading => (
+              <li class={`depth-${heading.depth}`}>
+                <a href={`#${heading.slug}`}>{heading.text}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
       
       <div class="post-content">
         <Content />
@@ -58,7 +100,50 @@ const { Content } = await render(post);
 <style>
   /* --- UPDATED STYLES --- */
   
-  /* Removed the bottom border from header so it flows into share buttons better */
+  /* Table of Contents Styling */
+  .toc {
+    background-color: var(--hover-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    border-left: 4px solid var(--accent);
+  }
+
+  .toc-title {
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+
+  .toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc li {
+    margin-bottom: 0.5rem;
+  }
+
+  .toc li.depth-3 {
+    padding-left: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .toc a {
+    text-decoration: none;
+    color: var(--text-main);
+    transition: color 0.2s;
+  }
+
+  .toc a:hover {
+    color: var(--accent);
+  }
+
   .post-header { 
     margin-bottom: 1rem; /* Reduced margin */
     padding-bottom: 1rem; 
