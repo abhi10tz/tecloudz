@@ -2,8 +2,8 @@ export function formatDate(date: Date, options?: Intl.DateTimeFormatOptions): st
   const defaultOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'short',
-    day: 'numeric',
+    day: 'numeric'
   };
-  
+
   return date.toLocaleDateString('en-US', { ...defaultOptions, ...options });
 }

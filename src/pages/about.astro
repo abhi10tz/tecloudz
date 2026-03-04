@@ -2,8 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="About - tecloudz" description="Learn more about tecloudz, a privacy-first tech blog dedicated to high-quality news, tutorials, and open-source guides." activeNav="about">
-  
+<Layout
+  title="About - tecloudz"
+  description="Learn more about tecloudz, a privacy-first tech blog dedicated to high-quality news, tutorials, and open-source guides."
+  activeNav="about"
+>
   <main class="about-container">
     <h1>About tecloudz</h1>
     <p class="lead">Cutting-edge tech stories that matter.</p>
@@ -11,9 +14,9 @@ import Layout from '../layouts/Layout.astro';
     <div class="content-block">
       <h2>Who We Are & Our Mission</h2>
       <p>
-        tecloudz is a privacy-first, no-nonsense tech blog. We believe the modern web is too cluttered. 
-        Our goal is to strip away the noise and deliver high-quality technology news, tutorials, and 
-        privacy guides in a clean, readable format.
+        tecloudz is a privacy-first, no-nonsense tech blog. We believe the modern web is too
+        cluttered. Our goal is to strip away the noise and deliver high-quality technology news,
+        tutorials, and privacy guides in a clean, readable format.
       </p>
     </div>
 
@@ -26,13 +29,11 @@ import Layout from '../layouts/Layout.astro';
       </p>
     </div>
   </main>
-
-  
 </Layout>
 
 <style>
   /* Reuse layout variables for consistency & Dark Mode */
-  
+
   /* Typography */
   h1 {
     font-size: 2.5rem;
@@ -63,8 +64,12 @@ import Layout from '../layouts/Layout.astro';
   }
 
   /* Spacing */
-  .about-container { margin-bottom: 4rem; }
-  .content-block { margin-bottom: 2.5rem; }
+  .about-container {
+    margin-bottom: 4rem;
+  }
+  .content-block {
+    margin-bottom: 2.5rem;
+  }
 
   /* Link Styling */
   .email-link {
@@ -75,6 +80,8 @@ import Layout from '../layouts/Layout.astro';
 
   /* Mobile Tweaks */
   @media (max-width: 600px) {
-    h1 { font-size: 2rem; }
+    h1 {
+      font-size: 2rem;
+    }
   }
 </style>

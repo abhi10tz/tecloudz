@@ -7,9 +7,9 @@ import { formatDate } from '../../utils/date';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  return posts.map(post => ({
+  return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post }
   }));
 }
 
@@ -17,37 +17,38 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 
 // Filter headings for TOC (usually H2 and H3)
-const toc = headings.filter(h => h.depth > 1 && h.depth < 4);
+const toc = headings.filter((h) => h.depth > 1 && h.depth < 4);
 
 // Prepare Schema Data
 const schemaData = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": post.data.title,
-  "description": post.data.description,
-  "image": post.data.image ? new URL(post.data.image.src, Astro.site) : new URL('/favicon.svg', Astro.site),
-  "author": {
-    "@type": "Person",
-    "name": post.data.author
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  image: post.data.image
+    ? new URL(post.data.image.src, Astro.site)
+    : new URL('/favicon.svg', Astro.site),
+  author: {
+    '@type': 'Person',
+    name: post.data.author
   },
-  "datePublished": post.data.date.toISOString(),
-  "publisher": {
-    "@type": "Organization",
-    "name": "tecloudz",
-    "logo": {
-      "@type": "ImageObject",
-      "url": new URL('/favicon.svg', Astro.site)
+  datePublished: post.data.date.toISOString(),
+  publisher: {
+    '@type': 'Organization',
+    name: 'tecloudz',
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/favicon.svg', Astro.site)
     }
   },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": new URL(Astro.url.pathname, Astro.site)
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': new URL(Astro.url.pathname, Astro.site)
   }
 };
 ---
 
 <Layout title={post.data.title} description={post.data.description} image={post.data.image}>
-  
   <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
 
   <main class="post-container">
@@ -59,47 +60,48 @@ const schemaData = {
         </div>
         <h1>{post.data.title}</h1>
         <p class="author">By {post.data.author}</p>
-        
-        {post.data.image && (
-          <div class="featured-image">
-            <Image 
-              src={post.data.image} 
-              alt={post.data.title} 
-              loading="eager"
-              fetchpriority="high"
-            />
-          </div>
-        )}
+
+        {
+          post.data.image && (
+            <div class="featured-image">
+              <Image
+                src={post.data.image}
+                alt={post.data.title}
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+          )
+        }
       </header>
 
       <ShareButtons title={post.data.title} />
 
-      {toc.length > 0 && (
-        <nav class="toc">
-          <p class="toc-title">Table of Contents</p>
-          <ul>
-            {toc.map(heading => (
-              <li class={`depth-${heading.depth}`}>
-                <a href={`#${heading.slug}`}>{heading.text}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
-      
+      {
+        toc.length > 0 && (
+          <nav class="toc">
+            <p class="toc-title">Table of Contents</p>
+            <ul>
+              {toc.map((heading) => (
+                <li class={`depth-${heading.depth}`}>
+                  <a href={`#${heading.slug}`}>{heading.text}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )
+      }
+
       <div class="post-content">
         <Content />
       </div>
-
     </article>
   </main>
-
-  
 </Layout>
 
 <style>
   /* --- UPDATED STYLES --- */
-  
+
   /* Table of Contents Styling */
   .toc {
     background-color: var(--hover-bg);
@@ -144,23 +146,43 @@ const schemaData = {
     color: var(--accent);
   }
 
-  .post-header { 
+  .post-header {
     margin-bottom: 1rem; /* Reduced margin */
-    padding-bottom: 1rem; 
+    padding-bottom: 1rem;
   }
 
-  .post-header h1 { font-size: 2.2rem; line-height: 1.2; margin: 0.5rem 0 1rem 0; font-weight: 800; letter-spacing: -0.02em; }
-  
-  .meta { font-family: monospace; color: var(--text-muted); font-size: 0.9rem; }
-  .author { color: var(--text-muted); font-style: italic; }
+  .post-header h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+    margin: 0.5rem 0 1rem 0;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
 
-  .featured-image { margin-top: 2rem; margin-bottom: 1rem; }
-  .featured-image img { width: 100%; height: auto; border-radius: 8px; }
+  .meta {
+    font-family: monospace;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .author {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .featured-image {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  .featured-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
 
   /* Markdown Content Styling */
-  .post-content { 
-    line-height: 1.7; 
-    color: var(--text-main); 
+  .post-content {
+    line-height: 1.7;
+    color: var(--text-main);
     font-size: 1.1rem;
     margin-top: 2rem; /* Add spacing between Share Buttons and Text */
   }
@@ -168,17 +190,19 @@ const schemaData = {
   /* Headings */
   .post-content :global(h1),
   .post-content :global(h2),
-  .post-content :global(h3) { 
+  .post-content :global(h3) {
     color: var(--text-main);
     font-weight: 700;
     margin-top: 2rem;
   }
 
-  .post-content :global(p) { margin-bottom: 1.5rem; }
-  .post-content :global(ul), 
-  .post-content :global(ol) { 
-    margin-bottom: 1.5rem; 
-    padding-left: 1.5rem; 
+  .post-content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
   }
 
   .post-content :global(li) {
@@ -191,7 +215,7 @@ const schemaData = {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
-  
+
   .post-content :global(blockquote) {
     border-left: 4px solid var(--accent);
     padding-left: 1rem;
@@ -222,14 +246,17 @@ const schemaData = {
     overflow-x: auto;
     margin-bottom: 1.5rem;
   }
-  
+
   .post-content :global(pre) :global(code) {
     background-color: transparent;
     padding: 0;
   }
 
-  .post-content :global(a) { text-decoration: underline; color: var(--accent); }
-  
+  .post-content :global(a) {
+    text-decoration: underline;
+    color: var(--accent);
+  }
+
   /* Images */
   .post-content :global(img) {
     max-width: 100%;

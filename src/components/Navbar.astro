@@ -9,9 +9,21 @@ const { active } = Astro.props;
 <header class="navbar">
   <div class="logo"><a href="/">tecloudz.</a></div>
   <nav>
-    <a href="/" class={active === 'home' ? 'active' : ''} aria-current={active === 'home' ? 'page' : undefined}>Home</a>
-    <a href="/posts" class={active === 'posts' ? 'active' : ''} aria-current={active === 'posts' ? 'page' : undefined}>Posts</a>
-    <a href="/about" class={active === 'about' ? 'active' : ''} aria-current={active === 'about' ? 'page' : undefined}>About</a>
+    <a
+      href="/"
+      class={active === 'home' ? 'active' : ''}
+      aria-current={active === 'home' ? 'page' : undefined}>Home</a
+    >
+    <a
+      href="/posts"
+      class={active === 'posts' ? 'active' : ''}
+      aria-current={active === 'posts' ? 'page' : undefined}>Posts</a
+    >
+    <a
+      href="/about"
+      class={active === 'about' ? 'active' : ''}
+      aria-current={active === 'about' ? 'page' : undefined}>About</a
+    >
   </nav>
 </header>
 
@@ -23,7 +35,7 @@ const { active } = Astro.props;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .logo a {
     font-weight: 700;
     font-size: 1.1rem;
