@@ -63,9 +63,9 @@ const socialImageURL = resolveImageURL(image);
     <div class="site-wrapper">
       <Navbar active={activeNav} />
 
-      <main>
+      <div class="page-content">
         <slot />
-      </main>
+      </div>
 
       <footer class="minimal-footer">
         <div class="footer-links">
@@ -107,7 +107,7 @@ const socialImageURL = resolveImageURL(image);
     min-height: 100vh;
   }
 
-  main {
+  .page-content {
     flex: 1;
     width: 100%;
   }

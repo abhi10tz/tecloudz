@@ -55,7 +55,9 @@ const schemaData = {
     <article>
       <header class="post-header">
         <div class="meta">
-          <time>{formatDate(post.data.date, { month: 'long' })}</time>
+          <time datetime={post.data.date.toISOString()}>
+            {formatDate(post.data.date, { month: 'long' })}
+          </time>
           <span>/ {post.data.category}</span>
         </div>
         <h1>{post.data.title}</h1>

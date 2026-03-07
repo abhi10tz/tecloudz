@@ -41,6 +41,12 @@ a:hover {
   color: var(--accent);
 }
 
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* --- 4. Global Footer Styles --- */
 .minimal-footer {
   margin-top: auto; /* Pushes footer to the bottom */
