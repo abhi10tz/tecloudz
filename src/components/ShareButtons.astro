@@ -1,19 +1,18 @@
 ---
-// src/components/ShareButtons.astro
 interface Props {
   title: string;
-  description?: string;
+  label?: string;
 }
 
-const { title } = Astro.props;
+const { title, label = 'Share this article' } = Astro.props;
 const url = Astro.url;
 
-// Encode for URL parameters
 const shareUrl = encodeURIComponent(url.href);
 const shareTitle = encodeURIComponent(title);
 ---
 
-<div class="share-container">
+<div class="share-container" data-share-root>
+  <p class="share-label">{label}</p>
   <div class="share-links">
     <a
       href={`https://x.com/intent/tweet?text=${shareTitle}&url=${shareUrl}`}
@@ -21,6 +20,7 @@ const shareTitle = encodeURIComponent(title);
       rel="noopener noreferrer"
       aria-label="Share on X"
       class="share-btn"
+      data-share-platform="x"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -40,6 +40,7 @@ const shareTitle = encodeURIComponent(title);
       rel="noopener noreferrer"
       aria-label="Share on LinkedIn"
       class="share-btn"
+      data-share-platform="linkedin"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -59,6 +60,7 @@ const shareTitle = encodeURIComponent(title);
       rel="noopener noreferrer"
       aria-label="Share on Reddit"
       class="share-btn"
+      data-share-platform="reddit"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +74,13 @@ const shareTitle = encodeURIComponent(title);
       >
     </a>
 
-    <button id="copy-btn" class="share-btn" aria-label="Copy Link">
+    <button
+      type="button"
+      data-copy-btn
+      class="share-btn"
+      aria-label="Copy Link"
+      data-share-platform="copy-link"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -88,19 +96,60 @@ const shareTitle = encodeURIComponent(title);
       >
     </button>
   </div>
+  <span class="copy-status" data-copy-status role="status" aria-live="polite"></span>
 </div>
 
 <script>
-  // Simple script to copy URL to clipboard, compatible with View Transitions
+  const trackShare = (platform) => {
+    const safePlatform = platform || 'unknown';
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'share', {
+        method: safePlatform,
+        content_type: 'article',
+        item_id: window.location.pathname
+      });
+    }
+
+    window.dispatchEvent(
+      new CustomEvent('tecloudz:share', {
+        detail: {
+          platform: safePlatform,
+          path: window.location.pathname
+        }
+      })
+    );
+  };
+
   document.addEventListener('astro:page-load', () => {
-    const copyBtn = document.getElementById('copy-btn');
-    copyBtn?.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(window.location.href);
-        alert('Link copied to clipboard!');
-      } catch (err) {
-        console.error('Failed to copy!', err);
-      }
+    const roots = document.querySelectorAll('[data-share-root]');
+    roots.forEach((root) => {
+      const copyBtn = root.querySelector('[data-copy-btn]');
+      const copyStatus = root.querySelector('[data-copy-status]');
+      const links = root.querySelectorAll('[data-share-platform]');
+
+      links.forEach((node) => {
+        if (node.getAttribute('data-track-bound') === 'true') return;
+        const platform = node.getAttribute('data-share-platform');
+        node.addEventListener('click', () => trackShare(platform));
+        node.setAttribute('data-track-bound', 'true');
+      });
+
+      if (!copyBtn || copyBtn.getAttribute('data-bound') === 'true') return;
+
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          if (copyStatus) copyStatus.textContent = 'Link copied';
+        } catch {
+          if (copyStatus) copyStatus.textContent = 'Copy failed';
+        }
+
+        window.setTimeout(() => {
+          if (copyStatus) copyStatus.textContent = '';
+        }, 1800);
+      });
+
+      copyBtn.setAttribute('data-bound', 'true');
     });
   });
 </script>
@@ -112,12 +161,14 @@ const shareTitle = encodeURIComponent(title);
     border-top: 1px solid var(--border-color);
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 1rem;
   }
 
   .share-label {
-    font-size: 0.9rem;
-    font-weight: 600;
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 700;
     color: var(--text-main);
   }
 
@@ -133,7 +184,7 @@ const shareTitle = encodeURIComponent(title);
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background-color: var(--hover-bg); /* Subtle background */
+    background-color: var(--hover-bg);
     color: var(--text-muted);
     transition: all 0.2s ease;
     border: none;
@@ -141,8 +192,14 @@ const shareTitle = encodeURIComponent(title);
   }
 
   .share-btn:hover {
-    background-color: var(--text-main); /* Invert on hover */
+    background-color: var(--text-main);
     color: var(--bg-color);
     transform: translateY(-2px);
+  }
+
+  .copy-status {
+    min-width: 5.2rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
   }
 </style>

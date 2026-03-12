@@ -1,77 +1,162 @@
-/* --- 1. Define Variables (Light Mode Default) --- */
 :root {
-  --bg-color: #ffffff;
-  --text-main: #111111;
-  --text-muted: #666666;
-  --border-color: #eaeaea;
-  --accent: #000000;
-  --hover-bg: #f5f5f5;
+  --bg-color: #f5f7fa;
+  --bg-gradient: var(--bg-color);
+  --surface-1: #ffffff;
+  --surface-2: #f1f4f8;
+  --text-main: #101826;
+  --text-secondary: #374151;
+  --text-muted: #667085;
+  --border-color: #d7deea;
+  --border-strong: #b7c3d9;
+  --accent: #0f766e;
+  --accent-strong: #0b5d57;
+  --focus-ring: rgba(15, 118, 110, 0.35);
+  --hover-bg: #e9eff8;
+  --shadow-soft: 0 10px 30px rgba(16, 24, 38, 0.08);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  color-scheme: light;
 }
 
-/* --- 2. Dark Mode Override --- */
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --bg-color: #0e141f;
+  --bg-gradient: var(--bg-color);
+  --surface-1: #111a2b;
+  --surface-2: #1a273f;
+  --text-main: #e5edf9;
+  --text-secondary: #c2cee0;
+  --text-muted: #92a0bb;
+  --border-color: #253552;
+  --border-strong: #324668;
+  --accent: #6ee7d6;
+  --accent-strong: #99f6e4;
+  --focus-ring: rgba(110, 231, 214, 0.38);
+  --hover-bg: #1a273f;
+  --shadow-soft: 0 16px 34px rgba(0, 0, 0, 0.32);
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #111111;
-    --text-main: #e0e0e0;
-    --text-muted: #a0a0a0;
-    --border-color: #333333;
-    --accent: #ffffff;
-    --hover-bg: #222222;
+  :root[data-theme='system'] {
+    --bg-color: #0e141f;
+    --bg-gradient: var(--bg-color);
+    --surface-1: #111a2b;
+    --surface-2: #1a273f;
+    --text-main: #e5edf9;
+    --text-secondary: #c2cee0;
+    --text-muted: #92a0bb;
+    --border-color: #253552;
+    --border-strong: #324668;
+    --accent: #6ee7d6;
+    --accent-strong: #99f6e4;
+    --focus-ring: rgba(110, 231, 214, 0.38);
+    --hover-bg: #1a273f;
+    --shadow-soft: 0 16px 34px rgba(0, 0, 0, 0.32);
+    color-scheme: dark;
   }
 }
 
-/* --- 3. Global Styles --- */
 html {
-  font-family: system-ui, sans-serif;
-  background: var(--bg-color);
+  font-family:
+    'Avenir Next',
+    'Segoe UI',
+    'Helvetica Neue',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--bg-gradient);
   color: var(--text-main);
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
+
 body {
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
+  color: inherit;
+  background: transparent;
 }
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+  color: var(--text-main);
+}
+
+p,
+li {
+  color: var(--text-secondary);
+}
+
 a {
   text-decoration: none;
   color: inherit;
 }
+
 a:hover {
   color: var(--accent);
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
-/* --- 4. Global Footer Styles --- */
-.minimal-footer {
-  margin-top: auto; /* Pushes footer to the bottom */
-  width: 100%;
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
 
+.minimal-footer {
+  margin-top: auto;
+  width: 100%;
   padding: 2rem 0;
   text-align: center;
   border-top: 1px solid var(--border-color);
-  font-size: 0.8rem;
   color: var(--text-muted);
+  font-size: 0.88rem;
 }
 
 .footer-links {
   margin-bottom: 1rem;
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  flex-wrap: wrap;
 }
 
 .footer-links a {
   color: var(--text-muted);
-  font-weight: 500;
+  font-weight: 600;
+  padding: 0.25rem 0;
 }
 
 .footer-links a:hover {
-  color: var(--accent);
+  color: var(--accent-strong);
   text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

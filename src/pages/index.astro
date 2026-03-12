@@ -1,20 +1,15 @@
 ---
-import Layout from '../layouts/Layout.astro'; // Capitalized 'L' is safer
+import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../utils/date';
 
-// 1. Fetch all posts
 const allPosts = await getCollection('posts');
 
-// 2. Sort by Date (Newest first)
 const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-// 3. Separate Featured vs. List
 const featuredPost = sortedPosts.find((p) => p.data.featured);
-// Filter out the featured post from the main list
 const listPosts = sortedPosts.filter((p) => p.id !== featuredPost?.id);
 
-// SEO Schema
 const schemaData = {
   '@context': 'https://schema.org',
   '@type': 'NewsMediaOrganization',
@@ -77,9 +72,8 @@ const schemaData = {
 </Layout>
 
 <style>
-  /* --- UPDATED STYLES --- */
-
   h1 {
+    font-family: 'Obviously', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
     font-size: 2.5rem;
     letter-spacing: -0.03em;
     line-height: 1.1;
@@ -88,6 +82,7 @@ const schemaData = {
   }
 
   h2 {
+    font-family: 'Obviously', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -96,6 +91,7 @@ const schemaData = {
   }
 
   h3 {
+    font-family: 'Obviously', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0;

@@ -29,11 +29,29 @@ const socialImageURL = resolveImageURL(image);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="system">
   <head>
     <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <script is:inline>
+      (() => {
+        const key = 'tecloudz-theme';
+        const allowed = new Set(['light', 'dark', 'system']);
+        const applyTheme = () => {
+          let mode = 'system';
+          try {
+            const saved = localStorage.getItem(key);
+            if (saved && allowed.has(saved)) mode = saved;
+          } catch {}
+          document.documentElement.setAttribute('data-theme', mode);
+        };
+
+        applyTheme();
+        document.addEventListener('astro:after-swap', applyTheme);
+        document.addEventListener('astro:page-load', applyTheme);
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
@@ -99,9 +117,9 @@ const socialImageURL = resolveImageURL(image);
 
 <style>
   .site-wrapper {
-    max-width: 720px;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 clamp(1rem, 3vw, 1.75rem);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -110,6 +128,7 @@ const socialImageURL = resolveImageURL(image);
   .page-content {
     flex: 1;
     width: 100%;
+    padding-bottom: 1rem;
   }
 
   .footer-links {
@@ -119,5 +138,14 @@ const socialImageURL = resolveImageURL(image);
   .footer-links a {
     display: flex;
     align-items: center;
+  }
+
+  .footer-links a svg {
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-links a:hover svg {
+    opacity: 1;
   }
 </style>
