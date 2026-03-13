@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import ShareButtons from '../../components/ShareButtons.astro';
 import { formatDate } from '../../utils/date';
+import { generateBlogPostSchema } from '../../utils/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -18,32 +19,7 @@ const { Content, headings } = await render(post);
 
 const toc = headings.filter((h) => h.depth > 1 && h.depth < 4);
 
-const schemaData = {
-  '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: post.data.title,
-  description: post.data.description,
-  image: post.data.image
-    ? new URL(post.data.image.src, Astro.site)
-    : new URL('/favicon.svg', Astro.site),
-  author: {
-    '@type': 'Person',
-    name: post.data.author
-  },
-  datePublished: post.data.date.toISOString(),
-  publisher: {
-    '@type': 'Organization',
-    name: 'tecloudz',
-    logo: {
-      '@type': 'ImageObject',
-      url: new URL('/favicon.svg', Astro.site)
-    }
-  },
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': new URL(Astro.url.pathname, Astro.site)
-  }
-};
+const schemaData = generateBlogPostSchema(post, Astro.site ? Astro.site.href : 'https://tecloudz.com');
 ---
 
 <Layout title={post.data.title} description={post.data.description} image={post.data.image}>

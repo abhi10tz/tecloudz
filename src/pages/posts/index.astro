@@ -8,7 +8,11 @@ const allPosts = await getCollection('posts');
 const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
-<Layout title="All Posts - tecloudz" activeNav="posts">
+<Layout
+  title="All Posts - tecloudz"
+  description="Explore our complete archive of technology stories, privacy guides, and latest news."
+  activeNav="posts"
+>
   <main>
     <header class="page-header">
       <h1>All Posts</h1>
