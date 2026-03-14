@@ -6,6 +6,12 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tecloudz.com',
-  prefetch: true,
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover'
+  },
+  security: {
+    csp: true
+  },
   integrations: [sitemap()]
 });

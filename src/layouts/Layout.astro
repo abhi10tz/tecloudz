@@ -17,39 +17,21 @@ const {
   image,
   activeNav
 } = Astro.props;
+
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
-const resolveImageURL = (img: ImageMetadata | string | undefined) => {
-  const site = Astro.site ? Astro.site.href : 'https://tecloudz.com';
-  if (!img) return new URL('/favicon.svg', site);
-  if (typeof img === 'string') return new URL(img, site);
-  return new URL(img.src, site);
-};
-
-const socialImageURL = resolveImageURL(image);
+const socialImageURL = new URL(
+  typeof image === 'string' ? image : (image?.src || '/favicon.svg'),
+  Astro.site
+);
 const currentYear = new Date().getFullYear();
 ---
 
 <!doctype html>
-<html lang="en" data-theme="system">
+<html lang="en">
   <head>
     <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <script is:inline>
-      (() => {
-        const key = 'tecloudz-theme';
-        const applyTheme = () => {
-          let mode = localStorage.getItem(key) || 'system';
-          if (!['light', 'dark', 'system'].includes(mode)) mode = 'system';
-          document.documentElement.setAttribute('data-theme', mode);
-        };
-
-        applyTheme();
-        document.addEventListener('astro:after-swap', applyTheme);
-        document.addEventListener('astro:page-load', applyTheme);
-      })();
-    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
@@ -133,6 +115,7 @@ const currentYear = new Date().getFullYear();
 
   .footer-links {
     align-items: center;
+    font-family: var(--font-heading);
   }
 
   .footer-links a {
@@ -147,5 +130,10 @@ const currentYear = new Date().getFullYear();
 
   .footer-links a:hover svg {
     opacity: 1;
+  }
+
+  .minimal-footer p {
+    font-family: var(--font-heading);
+    margin: 0;
   }
 </style>

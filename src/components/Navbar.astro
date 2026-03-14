@@ -26,10 +26,6 @@ const { active } = Astro.props;
         aria-current={active === 'about' ? 'page' : undefined}>About</a
       >
     </div>
-    <button type="button" class="theme-toggle" data-theme-toggle aria-label="Theme: System">
-      <span class="theme-icon" data-theme-icon aria-hidden="true"></span>
-      <span class="sr-only" data-theme-text>System</span>
-    </button>
   </nav>
 </header>
 
@@ -43,6 +39,7 @@ const { active } = Astro.props;
   }
 
   .logo a {
+    font-family: var(--font-heading);
     font-weight: 800;
     font-size: 1.15rem;
     color: var(--text-main);
@@ -68,6 +65,7 @@ const { active } = Astro.props;
   }
 
   .nav-links a {
+    font-family: var(--font-heading);
     margin-left: 0;
     font-size: 0.9rem;
     color: var(--text-muted);
@@ -90,63 +88,6 @@ const { active } = Astro.props;
     background: var(--surface-2);
   }
 
-  .theme-toggle {
-    border: none;
-    background: transparent;
-    color: var(--text-muted);
-    border-radius: var(--radius-md);
-    padding: 0;
-    width: 2.4rem;
-    height: 2.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease,
-      transform 0.2s ease;
-  }
-
-  .theme-toggle:hover {
-    background: var(--hover-bg);
-    color: var(--text-main);
-  }
-
-  .theme-toggle:active {
-    transform: scale(0.92);
-  }
-
-  .theme-icon {
-    display: inline-flex;
-    width: 1.1rem;
-    height: 1.1rem;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .theme-toggle[data-animating] .theme-icon {
-    transform: rotate(45deg) scale(0.8);
-    opacity: 0;
-  }
-
-  .theme-icon :global(svg) {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
   @media (max-width: 600px) {
     .navbar {
       padding-top: 1.5rem;
@@ -165,57 +106,5 @@ const { active } = Astro.props;
       flex-wrap: wrap;
       box-shadow: none;
     }
-
-    .theme-toggle {
-      background: var(--surface-1);
-      border: 1px solid var(--border-color);
-    }
   }
 </style>
-
-<script is:inline>
-  (() => {
-    const themeKey = 'tecloudz-theme';
-    const modes = ['system', 'light', 'dark'];
-    const icons = {
-      system: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M12 16v4"></path><path d="M8 20h8"></path></svg>',
-      light: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>',
-      dark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>'
-    };
-
-    const labels = { system: 'System', light: 'Light', dark: 'Dark' };
-
-    const updateButton = (button) => {
-      const mode = document.documentElement.getAttribute('data-theme') || 'system';
-      button.setAttribute('aria-label', `Theme: ${labels[mode]}`);
-      const textNode = button.querySelector('[data-theme-text]');
-      if (textNode) textNode.textContent = labels[mode];
-      const iconNode = button.querySelector('[data-theme-icon]');
-      if (iconNode) iconNode.innerHTML = icons[mode];
-    };
-
-    const mount = () => {
-      const button = document.querySelector('[data-theme-toggle]');
-      if (!button || button.dataset.bound) return;
-
-      button.addEventListener('click', () => {
-        button.setAttribute('data-animating', 'true');
-        
-        setTimeout(() => {
-          const current = document.documentElement.getAttribute('data-theme') || 'system';
-          const next = modes[(modes.indexOf(current) + 1) % modes.length];
-          document.documentElement.setAttribute('data-theme', next);
-          localStorage.setItem(themeKey, next);
-          updateButton(button);
-          button.removeAttribute('data-animating');
-        }, 150);
-      });
-
-      button.dataset.bound = 'true';
-      updateButton(button);
-    };
-
-    document.addEventListener('astro:page-load', mount);
-    mount();
-  })();
-</script>

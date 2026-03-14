@@ -5,6 +5,7 @@
 }
 
 .policy-container h1 {
+  font-family: var(--font-heading);
   font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 0.5rem;
@@ -15,7 +16,7 @@
   color: var(--text-muted);
   font-size: 0.9rem;
   margin-bottom: 3rem;
-  font-family: monospace;
+  font-family: var(--font-heading);
 }
 
 .policy-content {
@@ -24,6 +25,7 @@
 }
 
 .policy-content h2 {
+  font-family: var(--font-heading);
   font-size: 1.4rem;
   margin-top: 2.5rem;
   margin-bottom: 1rem;

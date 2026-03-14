@@ -15,7 +15,7 @@ const schemaData = generateOrganizationSchema(Astro.site ? Astro.site.href : 'ht
 ---
 
 <Layout title="tecloudz | Tech stories that matter" activeNav="home">
-  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />
 
   <main>
     {
@@ -63,7 +63,7 @@ const schemaData = generateOrganizationSchema(Astro.site ? Astro.site.href : 'ht
 
 <style>
   h1 {
-    font-family: 'Obviously', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+    font-family: var(--font-heading);
     font-size: 2.5rem;
     letter-spacing: -0.03em;
     line-height: 1.1;
@@ -72,7 +72,7 @@ const schemaData = generateOrganizationSchema(Astro.site ? Astro.site.href : 'ht
   }
 
   h2 {
-    font-family: 'Obviously', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+    font-family: var(--font-heading);
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -81,7 +81,7 @@ const schemaData = generateOrganizationSchema(Astro.site ? Astro.site.href : 'ht
   }
 
   h3 {
-    font-family: 'Obviously', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+    font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0;
@@ -101,6 +101,7 @@ const schemaData = generateOrganizationSchema(Astro.site ? Astro.site.href : 'ht
     margin-bottom: 3rem;
   }
   .meta-label {
+    font-family: var(--font-heading);
     font-size: 0.8rem;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -139,7 +140,7 @@ const schemaData = generateOrganizationSchema(Astro.site ? Astro.site.href : 'ht
   .item-meta {
     font-size: 0.85rem;
     color: var(--text-muted);
-    font-family: monospace;
+    font-family: var(--font-heading);
     margin-bottom: 0.25rem;
   }
 

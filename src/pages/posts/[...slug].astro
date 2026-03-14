@@ -23,7 +23,7 @@ const schemaData = generateBlogPostSchema(post, Astro.site ? Astro.site.href : '
 ---
 
 <Layout title={post.data.title} description={post.data.description} image={post.data.image}>
-  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />
 
   <main class="post-container">
     <article>
@@ -87,6 +87,7 @@ const schemaData = generateBlogPostSchema(post, Astro.site ? Astro.site.href : '
   }
 
   .toc-title {
+    font-family: var(--font-heading);
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 1rem;
@@ -127,7 +128,7 @@ const schemaData = generateBlogPostSchema(post, Astro.site ? Astro.site.href : '
   }
 
   .post-header h1 {
-    font-family: 'Obviously', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+    font-family: var(--font-heading);
     font-size: 2.2rem;
     line-height: 1.2;
     margin: 0.5rem 0 1rem 0;
@@ -136,7 +137,7 @@ const schemaData = generateBlogPostSchema(post, Astro.site ? Astro.site.href : '
   }
 
   .meta {
-    font-family: monospace;
+    font-family: var(--font-heading);
     color: var(--text-muted);
     font-size: 0.9rem;
   }
@@ -165,7 +166,7 @@ const schemaData = generateBlogPostSchema(post, Astro.site ? Astro.site.href : '
   .post-content :global(h1),
   .post-content :global(h2),
   .post-content :global(h3) {
-    font-family: 'Obviously', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+    font-family: var(--font-heading);
     color: var(--text-main);
     font-weight: 700;
     margin-top: 2rem;
@@ -210,7 +211,7 @@ const schemaData = generateBlogPostSchema(post, Astro.site ? Astro.site.href : '
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
     font-size: 0.9em;
-    font-family: monospace;
+    font-family: var(--font-heading);
   }
 
   .post-content :global(pre) {

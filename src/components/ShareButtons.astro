@@ -100,58 +100,49 @@ const shareTitle = encodeURIComponent(title);
 </div>
 
 <script>
-  const trackShare = (platform) => {
-    const safePlatform = platform || 'unknown';
+  declare global {
+    interface Window {
+      gtag: (command: string, action: string, params: object) => void;
+    }
+  }
+
+  const handleShareClick = async (e: MouseEvent) => {
+    const btn = (e.target as HTMLElement).closest('[data-share-platform]');
+    if (!btn) return;
+
+    const platform = btn.getAttribute('data-share-platform');
+    const path = window.location.pathname;
+
+    // Analytics
     if (typeof window.gtag === 'function') {
       window.gtag('event', 'share', {
-        method: safePlatform,
+        method: platform || 'unknown',
         content_type: 'article',
-        item_id: window.location.pathname
+        item_id: path
       });
     }
 
-    window.dispatchEvent(
-      new CustomEvent('tecloudz:share', {
-        detail: {
-          platform: safePlatform,
-          path: window.location.pathname
-        }
-      })
-    );
+    // Custom Event
+    window.dispatchEvent(new CustomEvent('tecloudz:share', { detail: { platform, path } }));
+
+    // Copy Link Logic
+    if (platform === 'copy-link') {
+      const root = btn.closest('[data-share-root]');
+      const status = root?.querySelector('[data-copy-status]');
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        if (status) status.textContent = 'Link copied';
+      } catch {
+        if (status) status.textContent = 'Copy failed';
+      }
+      setTimeout(() => {
+        if (status) status.textContent = '';
+      }, 1800);
+    }
   };
 
-  document.addEventListener('astro:page-load', () => {
-    const roots = document.querySelectorAll('[data-share-root]');
-    roots.forEach((root) => {
-      const copyBtn = root.querySelector('[data-copy-btn]');
-      const copyStatus = root.querySelector('[data-copy-status]');
-      const links = root.querySelectorAll('[data-share-platform]');
-
-      links.forEach((node) => {
-        if (node.getAttribute('data-track-bound') === 'true') return;
-        const platform = node.getAttribute('data-share-platform');
-        node.addEventListener('click', () => trackShare(platform));
-        node.setAttribute('data-track-bound', 'true');
-      });
-
-      if (!copyBtn || copyBtn.getAttribute('data-bound') === 'true') return;
-
-      copyBtn.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(window.location.href);
-          if (copyStatus) copyStatus.textContent = 'Link copied';
-        } catch {
-          if (copyStatus) copyStatus.textContent = 'Copy failed';
-        }
-
-        window.setTimeout(() => {
-          if (copyStatus) copyStatus.textContent = '';
-        }, 1800);
-      });
-
-      copyBtn.setAttribute('data-bound', 'true');
-    });
-  });
+  // Bind once to document for all share buttons (even after View Transitions)
+  document.addEventListener('click', handleShareClick);
 </script>
 
 <style>
