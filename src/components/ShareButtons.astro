@@ -103,6 +103,7 @@ const shareTitle = encodeURIComponent(title);
   declare global {
     interface Window {
       gtag: (command: string, action: string, params: object) => void;
+      __tecloudzShareHandlerBound?: boolean;
     }
   }
 
@@ -142,7 +143,10 @@ const shareTitle = encodeURIComponent(title);
   };
 
   // Bind once to document for all share buttons (even after View Transitions)
-  document.addEventListener('click', handleShareClick);
+  if (!window.__tecloudzShareHandlerBound) {
+    document.addEventListener('click', handleShareClick);
+    window.__tecloudzShareHandlerBound = true;
+  }
 </script>
 
 <style>

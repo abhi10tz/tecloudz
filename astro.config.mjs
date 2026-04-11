@@ -10,6 +10,9 @@ export default defineConfig({
     prefetchAll: true,
     defaultStrategy: 'hover'
   },
+  markdown: {
+    syntaxHighlight: 'prism'
+  },
   security: {
     csp: true
   },

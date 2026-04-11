@@ -34,6 +34,7 @@ const currentYear = new Date().getFullYear();
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#09090b" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
@@ -114,7 +115,9 @@ const currentYear = new Date().getFullYear();
   }
 
   .footer-links {
+    display: flex;
     align-items: center;
+    gap: 1.25rem;
     font-family: var(--font-heading);
   }
 
