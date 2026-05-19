@@ -31,7 +31,7 @@ const currentYear = new Date().getFullYear();
   <head>
     <ClientRouter />
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#09090b" />
@@ -53,11 +53,11 @@ const currentYear = new Date().getFullYear();
     <meta property="og:image" content={socialImageURL} />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImageURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
   </head>
   <body>
     <div class="site-wrapper">
@@ -69,7 +69,7 @@ const currentYear = new Date().getFullYear();
 
       <footer class="minimal-footer">
         <div class="footer-links">
-          <a href="/privacy">Privacy Policy</a>
+          <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>
           <a href="/about">About</a>
           <a
